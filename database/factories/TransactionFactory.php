@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,11 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->company(),
+            'amount' => rand(100, 30000),
+            'date' => fake()->date(),
+            'user_id' => User::factory(),
+            'transaction_category_id' => rand(1, 11),
         ];
     }
 }

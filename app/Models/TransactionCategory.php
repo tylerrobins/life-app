@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TransactionCategory extends Model
 {
-    /** @use HasFactory<\Database\Factories\TransactionCategoryFactory> */
     use HasFactory;
 
+    protected $fillable = ['name', 'type'];
 
     /**
      * Gets all transactions related to this category

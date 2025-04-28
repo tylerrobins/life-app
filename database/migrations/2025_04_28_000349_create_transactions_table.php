@@ -26,7 +26,7 @@ return new class extends Migration
         Schema::create('transaction_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->enum('type', ['income', 'expense', 'saving & investment']);
             $table->timestamps();
         });
     }
