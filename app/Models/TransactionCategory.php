@@ -12,15 +12,6 @@ class TransactionCategory extends Model
     /** @use HasFactory<\Database\Factories\TransactionCategoryFactory> */
     use HasFactory;
 
-    /**
-     * Gets home that transaction belongs to.
-     *
-     * @return BelongsTo<Home, TransactionCategory>
-     */
-    public function home(): BelongsTo
-    {
-        return $this->belongsTo(Home::class);
-    }
 
     /**
      * Gets all transactions related to this category

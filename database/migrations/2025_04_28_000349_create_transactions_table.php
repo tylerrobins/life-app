@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Home;
 use App\Models\TransactionCategory;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -28,7 +27,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-            $table->foreignIdFor(Home::class);
             $table->timestamps();
         });
     }

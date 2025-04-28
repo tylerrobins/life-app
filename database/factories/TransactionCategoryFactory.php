@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Home;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TransactionCategoryFactory extends Factory
 {
+    public $category = [
+        'income' => ['Interest', 'Secondary Income', 'Sale'],
+        'expense' => ['Entertainment', 'Groceries', 'Eating Out', 'General', 'Clothes', 'Other'],
+        'saving & investment' => ['investment', 'saving'],
+    ];
     /**
      * Define the model's default state.
      *
@@ -16,8 +22,13 @@ class TransactionCategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $type = fake()->randomElement(['income', 'expense', 'saving & investment']);
+        $name = fake()->randomElement($this->category[$type]);
+
         return [
-            //
+            'name' => $name,
+            'type' => $type,
+            'home_id' => Home::factory(),
         ];
     }
 }
