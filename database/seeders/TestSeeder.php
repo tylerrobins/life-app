@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Home;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class TestSeeder extends Seeder
 {
@@ -12,6 +15,18 @@ class TestSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $home = Home::factory()->create();
+        $user1 = User::factory()->create(['home_id' => $home->id]);
+        $user2 = User::factory()->create(['home_id' => $home->id]);
+        $test_user = $home->users()->create([
+            'name' => 'Tyler',
+            'email' => 'tylerkingsley@gmail.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now()
+        ]);
+
+        Transaction::factory(200)->create(['user_id' => $user1->id]);
+        Transaction::factory(200)->create(['user_id' => $user2->id]);
+        Transaction::factory(200)->create(['user_id' => $test_user->id]);
     }
 }
