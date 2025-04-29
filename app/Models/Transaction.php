@@ -18,8 +18,18 @@ class Transaction extends Model
      *
      * @return BelongsTo<TransactionCategory, Transaction>
      */
-    public function transactionCategory(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(TransactionCategory::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Gets the user who logged the transaction
+     *
+     * @return BelongsTo<User, Transaction>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

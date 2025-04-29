@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\TransactionCategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,11 +19,11 @@ return new class extends Migration
             $table->date('date');
             $table->integer('amount');
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(TransactionCategory::class);
+            $table->foreignIdFor(Category::class);
             $table->timestamps();
         });
 
-        Schema::create('transaction_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->enum('type', ['income', 'expense', 'saving & investment']);

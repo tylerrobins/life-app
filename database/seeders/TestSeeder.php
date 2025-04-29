@@ -30,5 +30,12 @@ class TestSeeder extends Seeder
         Transaction::factory(200)->create(['user_id' => $user1->id]);
         Transaction::factory(200)->create(['user_id' => $user2->id]);
         Transaction::factory(200)->create(['user_id' => $test_user->id]);
+
+        /**
+         * Creating an additonal user.
+         * Just to ensure that there only the test user and home are given.
+         */
+        $externalUser = User::factory()->create();
+        Transaction::factory(125)->create(['user_id' => $externalUser->id]);
     }
 }

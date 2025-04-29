@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\TransactionCategory;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -20,7 +20,7 @@ class CategorySeeder extends Seeder
 
         foreach ($category as $type => $names) {
             foreach ($names as $name) {
-                TransactionCategory::firstOrCreate([
+                Category::firstOrCreate([
                     'name' => $name,
                     'type' => $type,
                 ]);

@@ -22,7 +22,7 @@ class TransactionFactory extends Factory
             'amount' => rand(100, 30000),
             'date' => fake()->dateTimeBetween('-6 months', '-1 days')->format('Y-m-d'),
             'user_id' => User::factory(),
-            'transaction_category_id' => rand(1, 11),
+            'category_id' => rand(1, 11),
         ];
     }
 }

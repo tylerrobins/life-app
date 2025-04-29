@@ -19,6 +19,11 @@ const mainNavItems: NavItem[] = [
         href: '/finance',
         icon: CircleDollarSign,
     },
+    {
+        title: 'Finance TEST',
+        href: '/finance/test',
+        icon: CircleDollarSign,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
