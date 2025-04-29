@@ -15,6 +15,8 @@ class TestSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(CategorySeeder::class);
+
         $home = Home::factory()->create();
         $user1 = User::factory()->create(['home_id' => $home->id]);
         $user2 = User::factory()->create(['home_id' => $home->id]);
