@@ -40,13 +40,16 @@ class HandleInertiaRequests extends Middleware
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
         $user = $request->user()?->load('home');
         $userData = $user ? [
-            'email' => $user->email,
+            'id' => $user->id,
             'name' => $user->name,
+            'email' => $user->email,
+            'email_verified_at' => $user->email_verified_at,
+            'created_at' => $user->created_at,
+            'updated_at' => $user->updated_at,
             'home' => [
                 'name' => $user->home->name
             ]
         ] : null;
-
         return [
             ...parent::share($request),
             'name' => config('app.name'),

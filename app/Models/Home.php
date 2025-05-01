@@ -38,7 +38,6 @@ class Home extends Model
      */
     public function transactions(): HasManyThrough
     {
-        //return $this->hasManyThrough(Transaction::class, User::class);
-        return $this->throughUsers()->hasTransactions();
+        return $this->hasManyThrough(Transaction::class, User::class);
     }
 }

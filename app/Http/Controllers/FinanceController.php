@@ -16,17 +16,17 @@ class FinanceController extends Controller
     public function test(): Response
     {
         $user = Auth::user();
-        $transactions = $user->home->transactions()
-            ->select(['transactions.id', 'transactions.name', 'transactions.date', 'transactions.amount', 'transactions.user_id', 'transactions.category_id'])
+        $paginated_transactions = $user->home->transactions()
             ->with([
                 'user:id,name',
                 'category:id,name,type'
             ])
-            ->get();
+            ->latest('date')
+            ->paginate(25);
         return Inertia::render(
             'FinanceTest',
             [
-                'transactions' => $transactions
+                'paginated_transactions' => $paginated_transactions
             ]
         );
     }
