@@ -1,69 +1,87 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot } from 'reka-ui'
-import { ref } from "vue";
-import { type LinksType } from '@/types/Pagination';
+import { type PaginationComponentType, LinksType } from '@/types/Pagination';
+import { ref, onMounted } from "vue";
+import { ArrowLeft, ArrowRight } from 'lucide-vue-next';
 
-interface Props {
-    links: LinksType[],
-    total: number,
-    per_page: number,
-    current_page: number,
-    buttonStyle?: string
+interface props {
+    pagination: PaginationComponentType,
 }
 
-const props = withDefaults(
-    defineProps<Props>(),
-    {
-        buttonStyle: 'icons'
+const { pagination } = defineProps<props>();
+
+const showLinks = ref<LinksType[]>([]);
+
+const visibleLinks = () => {
+    const side = pagination.on_each_side;
+    const current = pagination.current_page;
+
+    const pages = pagination.links.filter(link => !isNaN(Number(link.label)) && link.label !== '...');
+
+    // Filter the pages based on the `onEachSide` range
+    const visiblePages = pages.filter(link => {
+        const page = Number(link.label);
+        return page >= current - side && page <= current + side;
+    });
+
+    // Add ellipsis logic:
+    const result = [];
+    result.push(pagination.links[0]);
+
+    // If the first visible page is far from the current page, add an ellipsis at the start
+    if (visiblePages[0] && Number(visiblePages[0].label) > 1) {
+        result.push({ url: null, label: '...', active: false });
     }
-);
+
+    // Add the visible pages to the result
+    result.push(...visiblePages);
+
+    // If the last visible page is far from the current page, add an ellipsis at the end
+    if (visiblePages[visiblePages.length - 1] && Number(visiblePages[visiblePages.length - 1].label) < pagination.last_page) {
+        result.push({ url: null, label: '...', active: false });
+    }
+
+    result.push(pagination.links[pagination.links.length - 1]);
+    return result;
+};
+
+onMounted(() => {
+    if (pagination.on_each_side) {
+        showLinks.value = visibleLinks();
+    } else {
+        showLinks.value = pagination.links;
+    }
+})
+
 </script>
 
 <template>
+
     <div class="w-full py-5">
-        <p>{{ current_page }}</p>
-        <div class="w-fit mx-auto">
-            <PaginationRoot :total="total" :sibling-count="1" :items-per-page="per_page" show-edges :default-page="1"
-                :page="current_page">
-                <PaginationList v-slot="{ items }" class="flex items-center gap-1 text-stone-700 dark:text-white">
-                    <PaginationFirst
-                        class="h-9 flex items-center justify-center bg-transparent hover:bg-white dark:hover:bg-stone-700/70 transition disabled:opacity-50 rounded-lg"
-                        :class="buttonStyle === 'button' ? 'w-fit' : 'w-9'">
-                        <button v-if="buttonStyle === 'button'" class="px-3 py-1">First</button>
-                        <Icon v-else icon="radix-icons:double-arrow-left" />
-                    </PaginationFirst>
-                    <PaginationPrev
-                        class="h-9 flex items-center justify-center bg-transparent hover:bg-white dark:hover:bg-stone-700/70 transition disabled:opacity-50 rounded-lg"
-                        :class="buttonStyle === 'button' ? 'w-fit mr-2' : 'w-9'">
-                        <button v-if="buttonStyle === 'button'" class="px-3 py-1">Prev</button>
-                        <Icon v-else icon="radix-icons:chevron-left" />
-                    </PaginationPrev>
-                    <template v-for="(page, index) in items">
-                        <PaginationListItem v-if="page.type === 'page'" :key="index"
-                            class="w-9 h-9 border dark:border-stone-800 rounded-lg bg-gray-100 dark:bg-transparent data-[selected]:!bg-white data-[selected]:shadow-sm dark:data-[selected]:text-black hover:bg-white dark:hover:bg-stone-700/70 transition"
-                            :value="page.value">
-                            {{ page.value }}
-                        </PaginationListItem>
-                        <PaginationEllipsis v-else :key="page.type" :index="index"
-                            class="w-9 h-9 flex items-center justify-center">
-                            &#8230;
-                        </PaginationEllipsis>
-                    </template>
-                    <PaginationNext
-                        class="h-9 flex items-center justify-center bg-transparent hover:bg-white dark:hover:bg-stone-700/70 transition disabled:opacity-50 rounded-lg"
-                        :class="buttonStyle === 'button' ? 'w-fit ml-2' : 'w-9'">
-                        <button v-if="buttonStyle === 'button'" class="px-3 py-1">Next</button>
-                        <Icon v-else icon="radix-icons:chevron-right" />
-                    </PaginationNext>
-                    <PaginationLast
-                        class="h-9  flex items-center justify-center bg-transparent hover:bg-white dark:hover:bg-stone-700/70 transition disabled:opacity-50 rounded-lg"
-                        :class="buttonStyle === 'button' ? 'w-fit' : 'w-9'">
-                        <button v-if="buttonStyle === 'button'" class="px-3 py-1">Last</button>
-                        <Icon v-else icon="radix-icons:double-arrow-right" />
-                    </PaginationLast>
-                </PaginationList>
-            </PaginationRoot>
+        <div class="w-fit mx-auto hidden md:block my-3">
+            <a v-for="link in showLinks" :href="link.url" class="p-2 border rounded-md mx-1" :class="[
+                link.active ?
+                    'bg-black/80 text-white dark:bg-white dark:border-white dark:text-black border-black'
+                    : [
+                        link.label === '...'
+                            ? 'border-transparent'
+                            : 'border-neutral-300 dark:border-white/50',
+                        link.url ? 'hover:bg-black/10 dark:hover:bg-neutral-700' : ''
+                    ],
+            ]">
+                <span class="min-w-5 text-center inline-block px-1" v-html="link.label" />
+            </a>
+        </div>
+        <div class="w-fit mx-auto px-3 md:hidden flex">
+            <a :href="pagination.prev_page_url" class="border border-black/12 dark:border-white/50 rounded-md p-2">
+                <ArrowLeft />
+            </a>
+            <div class="p-2 flex-1 text-center mx-4"><span class="w-fit">Page {{ pagination.current_page }}</span>
+            </div>
+            <a :href="pagination.next_page_url" class="border border-black/12 dark:border-white/50 rounded-md p-2">
+                <ArrowRight />
+            </a>
         </div>
     </div>
 </template>

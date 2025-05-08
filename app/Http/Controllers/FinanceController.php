@@ -10,7 +10,21 @@ class FinanceController extends Controller
 {
     public function view(): Response
     {
-        return Inertia::render('Finance');
+        $user = Auth::user();
+        $paginated_transactions = $user->home->transactions()
+            ->with([
+                'user:id,name',
+                'category:id,name,type'
+            ])
+            ->latest('date')
+            ->paginate(25)
+            ->onEachSide(2);
+        return Inertia::render(
+            'Finance',
+            [
+                'paginated_transactions' => $paginated_transactions
+            ]
+        );
     }
 
     public function test(): Response
