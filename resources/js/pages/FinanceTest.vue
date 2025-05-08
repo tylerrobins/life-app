@@ -2,7 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { type Transaction } from '@/types/transactions';
-import { type PaginationType } from '@/types/pagination';
+import { type PaginationType, PaginationComponentType } from '@/types/pagination';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { Pagination } from '@/components/ui/pagination';
@@ -11,7 +11,7 @@ interface Props {
     paginated_transactions: PaginationType<Transaction>;
 }
 
-defineProps<Props>();
+const { paginated_transactions } = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,6 +19,18 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/finance',
     },
 ];
+
+const pagination: PaginationComponentType = {
+    per_page: paginated_transactions.per_page,
+    total: paginated_transactions.total,
+    current_page: paginated_transactions.current_page,
+    links: paginated_transactions.links,
+    on_each_side: 2,
+    last_page: paginated_transactions.last_page,
+    next_page_url: paginated_transactions.next_page_url,
+    prev_page_url: paginated_transactions.prev_page_url,
+}
+
 </script>
 
 <template>
@@ -70,9 +82,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </tbody>
                     </table>
                 </div>
-                <Pagination :per_page="paginated_transactions.per_page" :total="paginated_transactions.total"
-                    :current_page="paginated_transactions.current_page" :links="paginated_transactions.links"
-                    buttonStyle="button" />
+                <Pagination :pagination="pagination" />
             </div>
         </div>
     </AppLayout>

@@ -22,7 +22,8 @@ class FinanceController extends Controller
                 'category:id,name,type'
             ])
             ->latest('date')
-            ->paginate(25);
+            ->paginate(25)
+            ->onEachSide(2);
         return Inertia::render(
             'FinanceTest',
             [

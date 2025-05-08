@@ -1,3 +1,9 @@
+export interface LinksType {
+    active: boolean,
+    label: string,
+    url: string | null,
+}
+
 export interface PaginationType<T> {
     current_page: number,
     data: T[],
@@ -14,8 +20,14 @@ export interface PaginationType<T> {
     total: number
 }
 
-export interface LinksType {
-    active: boolean,
-    label: string,
-    url: string | null,
+
+export interface PaginationComponentType {
+    links: LinksType[],
+    total: number,
+    per_page: number,
+    current_page: number,
+    last_page: number,
+    on_each_side?: number,
+    next_page_url: string | null,
+    prev_page_url: string | null,
 }
