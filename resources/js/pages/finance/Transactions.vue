@@ -16,7 +16,11 @@ const { paginated_transactions } = defineProps<Props>();
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Finance',
-        href: '/finance/test',
+        href: '/finance',
+    },
+    {
+        title: 'Transactions',
+        href: '/finance/transactions',
     },
 ];
 
@@ -35,27 +39,35 @@ const pagination: PaginationComponentType = {
 
 <template>
 
-    <Head title="Test Finance" />
+    <Head title="Finance" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div
                 class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
+                <div class="w-full flex my-4 px-4">
+                    <div class="flex-1"></div>
+                    <a
+                        class="border py-2 px-4 rounded cursor-pointer drop-shadow-sx border-black/20 bg-white/5 dark:border-white dark:hover:bg-white/20">
+                        Add
+                        <span class="hidden sm:inline-block">Transaction</span></a>
+                </div>
                 <div class="relative overflow-x-auto rounded">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table
+                        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-neutral-300 overflow-y-scroll">
                         <thead
-                            class="text-sm text-gray-700 uppercase bg-gray-50 dark:bg-neutral-700 dark:text-neutral-200">
+                            class="text-sm text-gray-700 uppercase bg-stone-200 dark:bg-stone-700 dark:text-neutral-200">
                             <tr>
                                 <th scope="col" class="px-2 sm:px-6 py-3">Date</th>
                                 <th scope="col" class="px-2 sm:px-6 py-3">Name</th>
                                 <th scope="col" class="px-2 sm:px-6 py-3 hidden sm:table-cell">Category</th>
                                 <th scope="col" class="px-2 sm:px-6 py-3">Type</th>
-                                <th scope="col" class="pl-1 pr-2 sm:px-6 py-3">Amount</th>
+                                <th scope="col" class="pl-1 pr-2 sm:px-6 py-3 ">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="transaction in paginated_transactions.data" :key="transaction.id"
-                                class="bg-white border-b dark:bg-neutral-900 dark:border-neutral-700 border-gray-200">
+                                class="bg-stone-50 border-b dark:bg-stone-900 dark:border-neutral-700 border-gray-200">
                                 <td class="pl-2 pr-0.5 sm:px-6 py-2 sm:py-4">
                                     <span class="block sm:hidden whitespace-nowrap">
                                         {{ new Date(transaction.date).toLocaleDateString('en-GB', {

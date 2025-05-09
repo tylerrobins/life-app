@@ -1,16 +1,10 @@
 <?php
 
-use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\Finance\TransactionController;
 use Illuminate\Support\Facades\Route;
 
-/**Route::get('finance/test', function () {
- *  $user = Auth::user();
- *  $transactions = $user->home->transactions;
- *  return Inertia::render('FinanceTest', ['transactions' => $transactions]);
- *})->middleware(['auth', 'verified'])->name('financeTest');
- */
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('finance', [FinanceController::class, 'view'])->name('finance');
-    Route::get('finance/test', [FinanceController::class, 'test'])->name('financeTest');
+    Route::get('finance', [TransactionController::class, 'dashboard'])->name('finance.dashboard');
+    Route::get('finance/transactions', [TransactionController::class, 'index'])->name('finance.index');
+    Route::get('finance/transactions/add', [TransactionController::class, 'create'])->name('finance.create');
 });
