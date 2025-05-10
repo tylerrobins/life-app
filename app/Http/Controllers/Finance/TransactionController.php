@@ -23,7 +23,7 @@ class TransactionController extends Controller
                 'category:id,name,type'
             ])
             ->latest('date')
-            ->paginate(25)
+            ->paginate(20)
             ->onEachSide(2);
         return Inertia::render(
             'finance/Transactions',

@@ -29,7 +29,6 @@ const pagination: PaginationComponentType = {
     total: paginated_transactions.total,
     current_page: paginated_transactions.current_page,
     links: paginated_transactions.links,
-    on_each_side: 2,
     last_page: paginated_transactions.last_page,
     next_page_url: paginated_transactions.next_page_url,
     prev_page_url: paginated_transactions.prev_page_url,
@@ -42,16 +41,9 @@ const pagination: PaginationComponentType = {
     <Head title="Finance" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-row gap-4 rounded-xl p-4">
             <div
                 class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
-                <div class="w-full flex my-4 px-4">
-                    <div class="flex-1"></div>
-                    <a
-                        class="border py-2 px-4 rounded cursor-pointer drop-shadow-sx border-black/20 bg-white/5 dark:border-white dark:hover:bg-white/20">
-                        Add
-                        <span class="hidden sm:inline-block">Transaction</span></a>
-                </div>
                 <div class="relative overflow-x-auto rounded">
                     <table
                         class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-neutral-300 overflow-y-scroll">
@@ -68,7 +60,7 @@ const pagination: PaginationComponentType = {
                         <tbody>
                             <tr v-for="transaction in paginated_transactions.data" :key="transaction.id"
                                 class="bg-stone-50 border-b dark:bg-stone-900 dark:border-neutral-700 border-gray-200">
-                                <td class="pl-2 pr-0.5 sm:px-6 py-2 sm:py-4">
+                                <td class="pl-2 pr-0.5 sm:px-6 py-2 sm:py-2">
                                     <span class="block sm:hidden whitespace-nowrap">
                                         {{ new Date(transaction.date).toLocaleDateString('en-GB', {
                                             day: '2-digit',
@@ -82,16 +74,16 @@ const pagination: PaginationComponentType = {
                                     </span>
                                 </td>
                                 <th scope="row"
-                                    class="px-0.5 sm:px-6 py-2 sm:py-4 text-gray-900 sm:whitespace-nowrap dark:text-white/85 sm:dark:text-white">
+                                    class="px-0.5 sm:px-6 py-2 sm:py-2 text-gray-900 sm:whitespace-nowrap dark:text-white/85 sm:dark:text-white">
                                     {{ transaction.name }}
                                 </th>
-                                <td class="px-0.5 sm:px-6 py-2 sm:py-4 hidden sm:table-cell">
+                                <td class="px-0.5 sm:px-6 py-2 sm:py-2 hidden sm:table-cell">
                                     {{ transaction.category?.name || '—' }}
                                 </td>
-                                <td class="px-0.5 sm:px-6 py-2 sm:py-4">
+                                <td class="px-0.5 sm:px-6 py-2 sm:py-2">
                                     {{ transaction.category?.type || '—' }}
                                 </td>
-                                <td class="pl-1 pr-2 sm:px-6 py-2 sm:py-4">
+                                <td class="pl-1 pr-2 sm:px-6 py-2 sm:py-3">
                                     <div class="flex">
                                         <span class="flex-1">
                                             $
@@ -106,6 +98,16 @@ const pagination: PaginationComponentType = {
                     </table>
                 </div>
                 <Pagination :pagination="pagination" />
+            </div>
+            <div
+                class="relative min-h-[100vh] rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min space-y-2 p-4">
+                <Link
+                    class="border block py-2 px-4 rounded cursor-pointer drop-shadow-sx border-black/20 dark:border-white dark:hover:bg-white/20">
+                Add
+                <span class="hidden sm:inline-block">Transaction</span></Link>
+                <div class="border border-white rounded w-52 p-2">Filter 1</div>
+                <div class="border border-white rounded w-52 p-2">Filter 2</div>
+                <div class="border border-white rounded w-52 p-2">Filter 3</div>
             </div>
         </div>
     </AppLayout>

@@ -3,6 +3,7 @@ import { Icon } from '@iconify/vue'
 import { PaginationEllipsis, PaginationFirst, PaginationLast, PaginationList, PaginationListItem, PaginationNext, PaginationPrev, PaginationRoot } from 'reka-ui'
 import { type PaginationComponentType, LinksType } from '@/types/Pagination';
 import { ref, onMounted } from "vue";
+import { Link } from '@inertiajs/vue3'
 import { ArrowLeft, ArrowRight } from 'lucide-vue-next';
 
 interface props {
@@ -60,7 +61,7 @@ onMounted(() => {
 
     <div class="w-full py-5">
         <div class="w-fit mx-auto hidden md:block my-3">
-            <a v-for="link in showLinks" :href="link.url" class="p-2 border rounded-md mx-1" :class="[
+            <Link preserve-scroll v-for="link in showLinks" :href="link.url" class="p-2 border rounded-md mx-1" :class="[
                 link.active ?
                     'bg-black/80 text-white dark:bg-white dark:border-white dark:text-black border-black'
                     : [
@@ -70,18 +71,20 @@ onMounted(() => {
                         link.url ? 'hover:bg-black/10 dark:hover:bg-neutral-700' : ''
                     ],
             ]">
-                <span class="min-w-5 text-center inline-block px-1" v-html="link.label" />
-            </a>
+            <span class="min-w-5 text-center inline-block px-1" v-html="link.label" />
+            </Link>
         </div>
         <div class="w-fit mx-auto px-3 md:hidden flex">
-            <a :href="pagination.prev_page_url" class="border border-black/12 dark:border-white/50 rounded-md p-2">
-                <ArrowLeft />
-            </a>
+            <Link preserve-scroll :href="pagination.prev_page_url"
+                class="border border-black/12 dark:border-white/50 rounded-md p-2">
+            <ArrowLeft />
+            </Link>
             <div class="p-2 flex-1 text-center mx-4"><span class="w-fit">Page {{ pagination.current_page }}</span>
             </div>
-            <a :href="pagination.next_page_url" class="border border-black/12 dark:border-white/50 rounded-md p-2">
-                <ArrowRight />
-            </a>
+            <Link preserve-scroll :href="pagination.next_page_url"
+                class="border border-black/12 dark:border-white/50 rounded-md p-2">
+            <ArrowRight />
+            </Link>
         </div>
     </div>
 </template>
