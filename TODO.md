@@ -1,0 +1,2 @@
+- [ ] Create filtering on transactions page
+- [ ] Implement infinite scroll
