@@ -11,7 +11,7 @@ class Transaction extends Model
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'amount', 'date', 'user_id', 'transaction_category_id'];
+    protected $guarded = [];
 
     /**
      * Gets the transaction category for the transaction

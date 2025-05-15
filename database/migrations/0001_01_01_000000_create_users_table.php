@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Home::class);
             $table->string('name');
             $table->string('email')->unique();
-            $table->foreignIdFor(Home::class);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

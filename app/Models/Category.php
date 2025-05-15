@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type'];
+    protected $guarded = [];
 
     /**
      * Gets all transactions related to this category

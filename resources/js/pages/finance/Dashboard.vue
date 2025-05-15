@@ -39,6 +39,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                             class="h-fit hover:bg-white/20 border border-white p-2 rounded">
                         Add
                         Transaction</Link>
+                        <Link :href="route('budget.index')"
+                            class="h-fit hover:bg-white/20 border border-white p-2 rounded">
+                        Budget
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\Account;
 use App\Models\Category;
-use App\Models\User;
+use App\Models\Home;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,21 +13,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Category::class);
-            $table->foreignIdFor(Account::class);
-            $table->date('date');
+            $table->foreignIdFor(Home::class);
             $table->string('name');
-            $table->integer('amount');
             $table->timestamps();
         });
 
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('budgets', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Home::class);
+            $table->foreignIdFor(Category::class);
             $table->string('name');
-            $table->enum('type', ['income', 'expense', 'saving & investment', 'transfer']);
+            $table->enum('period', ['daily', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'bi-annually', 'annually']);
+            $table->integer('amount');
             $table->timestamps();
         });
     }
@@ -38,7 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('budgets');
     }
 };
