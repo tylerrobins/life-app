@@ -9,11 +9,6 @@ use Inertia\Response;
 
 class TransactionController extends Controller
 {
-    public function dashboard(): Response
-    {
-        return Inertia::render('finance/Dashboard');
-    }
-
     public function index(): Response
     {
         $user = Auth::user();

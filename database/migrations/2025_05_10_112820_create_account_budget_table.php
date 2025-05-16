@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Budget;
 use App\Models\Category;
 use App\Models\Home;
 use Illuminate\Database\Migrations\Migration;
@@ -29,6 +30,16 @@ return new class extends Migration
             $table->integer('amount');
             $table->timestamps();
         });
+
+        Schema::create('budget_periods', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Budget::class);
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->boolean('current');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -38,5 +49,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('accounts');
         Schema::dropIfExists('budgets');
+        Schema::dropIfExists('budget_periods');
     }
 };
