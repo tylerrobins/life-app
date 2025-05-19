@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { type Transaction } from '@/types/transactions';
 import { type PaginationType, PaginationComponentType } from '@/types/pagination';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import { Pagination } from '@/components/ui/pagination';
 
@@ -101,7 +101,7 @@ const pagination: PaginationComponentType = {
             </div>
             <div
                 class="relative min-h-[100vh] rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min space-y-2 p-4">
-                <Link
+                <Link :href="route('transaction.create')"
                     class="border block py-2 px-4 rounded cursor-pointer drop-shadow-sx border-black/20 dark:border-white dark:hover:bg-white/20">
                 Add
                 <span class="hidden sm:inline-block">Transaction</span></Link>

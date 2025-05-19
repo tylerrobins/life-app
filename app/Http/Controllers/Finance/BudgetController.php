@@ -10,6 +10,6 @@ class BudgetController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('finance/Budget');
+        return Inertia::render('finance/budget/Index');
     }
 }

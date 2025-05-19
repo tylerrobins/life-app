@@ -21,7 +21,7 @@ class TransactionController extends Controller
             ->paginate(20)
             ->onEachSide(2);
         return Inertia::render(
-            'finance/Transactions',
+            'finance/transactions/Index',
             [
                 'paginated_transactions' => $paginated_transactions
             ]
@@ -30,6 +30,6 @@ class TransactionController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('finance/Add');
+        return Inertia::render('finance/transactions/Create');
     }
 }

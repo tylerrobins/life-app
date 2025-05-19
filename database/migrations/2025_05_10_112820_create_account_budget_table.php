@@ -28,13 +28,6 @@ return new class extends Migration
             $table->string('name');
             $table->enum('period', ['daily', 'weekly', 'fortnightly', 'monthly', 'quarterly', 'bi-annually', 'annually']);
             $table->integer('amount');
-            $table->timestamps();
-        });
-
-        Schema::create('budget_periods', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(Budget::class);
-            $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('current');
@@ -49,6 +42,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('accounts');
         Schema::dropIfExists('budgets');
-        Schema::dropIfExists('budget_periods');
     }
 };

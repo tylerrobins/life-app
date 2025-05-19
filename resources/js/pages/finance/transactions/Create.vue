@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import PlaceholderPattern from '../../components/PlaceholderPattern.vue';
+import { Head } from '@inertiajs/vue3';
+import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,9 +10,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/finance',
     },
     {
-        title: 'Budget',
-        href: '/finance/budget'
-    }
+        title: 'Transactions',
+        href: '/finance/transactions',
+    },
+    {
+        title: 'Add',
+        href: '/finance/transactions/add',
+    },
 ];
 </script>
 
