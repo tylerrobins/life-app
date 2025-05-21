@@ -12,4 +12,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('finance/transactions/add', [TransactionController::class, 'create'])->name('transaction.create');
 
     Route::get('finance/budget', [BudgetController::class, 'index'])->name('budget.index');
+    Route::get('finance/budget/add', [BudgetController::class, 'create'])->name('budget.create');
 });

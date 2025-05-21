@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Budget" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -32,8 +32,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <PlaceholderPattern />
                 </div>
                 <div
-                    class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+                    class="relative aspect-video overflow-auto rounded-xl border border-sidebar-border/70 dark:border-sidebar-border py-6 px-8">
+                    <div class="flex flex-col space-y-2 xl:grid xl:grid-cols-2 xl:gap-2 xl:space-y-0">
+                        <Link :href="route('budget.create')"
+                            class="h-fit hover:bg-white/20 border bg-neutral-50 border-black/25 dark:bg-black dark:border-white p-2 pl-3 rounded">
+                        Add Budget
+                        </Link>
+                    </div>
                 </div>
             </div>
             <div

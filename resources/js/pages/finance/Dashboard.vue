@@ -31,16 +31,16 @@ const breadcrumbs: BreadcrumbItem[] = [
                     class="relative aspect-video overflow-auto rounded-xl border border-sidebar-border/70 dark:border-sidebar-border py-6 px-8">
                     <div class="flex flex-col space-y-2 xl:grid xl:grid-cols-2 xl:gap-2 xl:space-y-0">
                         <Link :href="route('transaction.index')"
-                            class="h-fit hover:bg-white/20 border border-white p-2 rounded">
+                            class="h-fit hover:bg-white/20 border bg-neutral-50 border-black/25 dark:bg-black dark:border-white p-2 pl-3 rounded">
                         View
                         Transactions
                         </Link>
                         <Link :href="route('transaction.create')"
-                            class="h-fit hover:bg-white/20 border border-white p-2 rounded">
+                            class="h-fit hover:bg-white/20 border bg-neutral-50 border-black/25 dark:bg-black dark:border-white p-2 pl-3 rounded">
                         Add
                         Transaction</Link>
                         <Link :href="route('budget.index')"
-                            class="h-fit hover:bg-white/20 border border-white p-2 rounded">
+                            class="h-fit hover:bg-white/20 border bg-neutral-50 border-black/25 dark:bg-black dark:border-white p-2 pl-3 rounded">
                         View Budget
                         </Link>
                     </div>
