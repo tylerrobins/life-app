@@ -28,7 +28,7 @@ const isFocused = ref(false)
         class="relative w-fit outline-none focus:outline-none focus:ring-0 focus:shadow-none"
         @focus="e => isFocused = e.target.matches(':focus-visible')" @blur="isFocused = false">
         <ComboboxAnchor
-            class="inline-flex items-center justify-between pl-[15px] text-[13px] leading-none h-[35px] gap-[5px] hover:bg-neutral-50 focus:shadow-[0_0_0_2px] outline-none rounded-md border bg-transparent shadow-xs"
+            class="inline-flex items-center justify-between pl-[15px] text-[13px] leading-none h-[35px] gap-[5px] hover:bg-neutral-50 dark:hover:bg-input/50 focus:shadow-[0_0_0_2px] outline-none rounded-md border bg-transparent dark:bg-input/30 shadow-xs"
             :class="isFocused ? 'border-ring ring-ring/50 ring-[3px]' : ''">
             <ComboboxInput @focus="isFocused = true" @blur="isFocused = false" class="outline-none h-full"
                 placeholder="Placeholder..." />
@@ -38,13 +38,13 @@ const isFocused = ref(false)
         </ComboboxAnchor>
 
         <ComboboxContent
-            class="absolute z-10  mt-2 min-w-[200px] bg-white overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade ">
+            class="absolute z-10 mt-2 min-w-[200px] bg-white dark:bg-neutral-900 overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
             <ComboboxViewport class="p-[5px]">
                 <ComboboxEmpty class="text-xs font-medium text-center py-2" />
 
                 <ComboboxGroup>
                     <ComboboxItem v-for="(option, index) in options" :key="index"
-                        class="text-[13px] leading-none rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[highlighted]:outline-none data-[highlighted]:bg-neutral-200"
+                        class="text-[13px] leading-none rounded-[3px] flex items-center h-[25px] pr-[35px] pl-[25px] relative select-none data-[highlighted]:outline-none data-[highlighted]:bg-neutral-200 dark:data-[highlighted]:bg-neutral-600"
                         :value="option">
                         <ComboboxItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
                             <Icon icon="radix-icons:check" />
