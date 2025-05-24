@@ -13,4 +13,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('finance/budget', [BudgetController::class, 'index'])->name('budget.index');
     Route::get('finance/budget/add', [BudgetController::class, 'create'])->name('budget.create');
+    Route::post('finance/budget/add', [BudgetController::class, 'store'])->name('budget.store');
+    Route::get('finance/budget/test', [BudgetController::class, 'test'])->name('budget.test');
 });

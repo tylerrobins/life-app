@@ -10,6 +10,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ComboBox } from '@/components/ui/combobox';
 import { LoaderCircle } from 'lucide-vue-next';
+import { computed } from 'vue'
+
+interface category {
+    name: string
+    type: string
+    updated_at: date
+}
+
+interface Props {
+    types: string[]
+    categories: category[]
+}
+
+const { types, categories } = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,18 +41,25 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({
-    title: '',
+    type: '',
+    category: '',
     period: '',
     amount: '',
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    form.post(route('budget.store'));
 };
 
-const options = ['Daily', 'Weekly', 'Fortnightly', 'Monthly', 'Quarterly', 'Bi-annually', 'Annually', 'Custom'];
+const periods = ['Daily', 'Weekly', 'Fortnightly', 'Monthly', 'Quarterly', 'Bi-annually', 'Annually', 'Custom'];
+
+const isTypeSelected = computed(() => form.type !== '');
+const filteredCategories = computed(() => {
+    return categories
+        .filter((cat) => cat.type === form.type)
+        .map((cat) => cat.name)
+})
+
 </script>
 
 <template>
@@ -53,21 +74,28 @@ const options = ['Daily', 'Weekly', 'Fortnightly', 'Monthly', 'Quarterly', 'Bi-a
                 <form @submit.prevent="submit" class="flex flex-col gap-6">
                     <div class="grid gap-6">
                         <div class="grid gap-2">
-                            <Label for="title">Budget Title</Label>
-                            <Input id="title" type="text" required autofocus :tabindex="1" v-model="form.title"
-                                placeholder="Groceries" />
-                            <InputError :message="form.errors.title" />
+                            <Label for="type">Type</Label>
+                            <ComboBox v-model="form.type" autofocus :tabindex="1" :options="types" />
+                            <InputError :message="form.errors.type" />
                         </div>
 
                         <div class="grid gap-2">
-                            <Label for="period">Budget Period</Label>
-                            <ComboBox v-model="form.period" autofocus :tabindex="2" :options="options" />
-                            <InputError :message="form.errors.email" />
+                            <Label :class="isTypeSelected ? '' : 'text-neutral-300 dark:text-neutral-700'"
+                                for="category">Category</Label>
+                            <ComboBox v-model="form.category" autofocus :tabindex="2" :options="filteredCategories"
+                                :disabled="!isTypeSelected" />
+                            <InputError :message="form.errors.category" />
+                        </div>
+
+                        <div class="grid gap-2">
+                            <Label for="period">Period</Label>
+                            <ComboBox v-model="form.period" autofocus :tabindex="3" :options="periods" />
+                            <InputError :message="form.errors.period" />
                         </div>
 
                         <div class="grid gap-2">
                             <Label for="amount">Budget Amount</Label>
-                            <Input id="amount" type="text" required :tabindex="3" v-model="form.amount"
+                            <Input id="amount" type="text" required :tabindex="4" v-model="form.amount"
                                 placeholder="$ 450.00" />
                             <InputError :message="form.errors.amount" />
                         </div>
@@ -84,6 +112,10 @@ const options = ['Daily', 'Weekly', 'Fortnightly', 'Monthly', 'Quarterly', 'Bi-a
                     <div
                         class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min p-5">
                         <h1 class="text-xl font-bold">Budgets</h1>
+                        <h2>Categories</h2>
+                        <div v-for="category in categories">
+                            <p>{{ category.name }}</p>
+                        </div>
                     </div>
                     <div
                         class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min p-5">

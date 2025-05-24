@@ -13,9 +13,9 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $category = [
-            'income' => ['Income', 'Interest', 'Sale'],
-            'expense' => ['Entertainment', 'Groceries', 'Eating Out', 'General', 'Clothes', 'Other'],
-            'saving & investment' => ['investment', 'saving'],
+            'Income' => ['Income', 'Interest', 'Sale'],
+            'Expense' => ['Entertainment', 'Groceries', 'Eating Out', 'General', 'Clothes', 'Other'],
+            'Saving & Investment' => ['investment', 'saving'],
         ];
 
         foreach ($category as $type => $names) {
