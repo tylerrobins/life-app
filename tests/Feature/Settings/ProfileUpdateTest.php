@@ -22,6 +22,7 @@ test('profile information can be updated', function () {
         ->patch('/settings/profile', [
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'home' =>  'Test Home',
         ]);
 
     $response
@@ -32,6 +33,7 @@ test('profile information can be updated', function () {
 
     expect($user->name)->toBe('Test User');
     expect($user->email)->toBe('test@example.com');
+    expect($user->home->name)->toBe('Test Home');
     expect($user->email_verified_at)->toBeNull();
 });
 
@@ -43,6 +45,7 @@ test('email verification status is unchanged when the email address is unchanged
         ->patch('/settings/profile', [
             'name' => 'Test User',
             'email' => $user->email,
+            'home' => $user->home->name,
         ]);
 
     $response
@@ -85,3 +88,4 @@ test('correct password must be provided to delete account', function () {
 
     expect($user->fresh())->not->toBeNull();
 });
+
