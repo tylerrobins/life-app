@@ -112,10 +112,6 @@ const filteredCategories = computed(() => {
                     <div
                         class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min p-5">
                         <h1 class="text-xl font-bold">Budgets</h1>
-                        <h2>Categories</h2>
-                        <div v-for="category in categories">
-                            <p>{{ category.name }}</p>
-                        </div>
                     </div>
                     <div
                         class="relative aspect-video rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min p-5">
